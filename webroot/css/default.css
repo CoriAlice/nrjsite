@@ -1,0 +1,89 @@
+
+
+html { overflow-y:auto }
+
+
+
+#entete{
+text-align: center;
+}
+
+#img-texte{
+   
+    color:#EF8F34;
+    display: inline-block;
+    font-size: x-large;
+    
+   }
+   
+   #img-texte img {
+    float:left;
+    margin-right:15px;
+    
+   
+}
+
+
+figure {
+    
+    
+}
+
+
+/* Add a black background color to the top navigation */
+
+.topnav {
+    background-color: #EF8F34;
+    overflow: hidden;
+      text-align: center;
+      width: 100%;
+  
+    
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display : inline-block;
+    float : none; 
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+   footer {
+          padding-top: 30px;
+	text-align: center;
+        line-height: 1px;
+      }
+       footer p{
+        font-size: small;
+        line-height: 1px;
+      }
+
+
+
+
+
+
+
+
+
+#map {
+        height: 500px;
+        width: 800px;
+      }
+      
+      #detailsSite{
+          list-style-type:none;
+      }
+      
+   
