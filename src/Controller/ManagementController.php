@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\I18n\Time;
 
 class ManagementController extends AppController {
 
@@ -140,10 +141,9 @@ class ManagementController extends AppController {
         $newPath = $this->Paths->newEntity();
         $sitename="";
         
-        if ($this->request->is('post') && $this->request->getData('submit') == 'Ajouter' ){
+        if ($this->request->is('post') && $this->request->getData('submit') == 'Ajouter la voie' ){
             $sitename=$tabSitesTries[$this->request->data['SiteName']];  
-            
-        
+  
          foreach($m as $site){
             if($site->name==$sitename) {
                 $newPath->ending_site_id=$site->id;
@@ -153,8 +153,19 @@ class ManagementController extends AppController {
                 $this->Paths->save($newPath);
             }
         }
-        
             }
+            
+            //formulaire nouveau relevé
+            $this->loadModel('Records');
+            $newRecords=$this->Records->newEntity();
+            $now=Time::now();
+            $now->timezone='Europe/Paris';
+            if ($this->request->is('post') && $this->request->getData('submit') == 'Ajouter le relevé' ){
+                $newRecords->site_id=$idsite;
+                $newRecords->date=$now;
+                $newRecords->value=$this->request->data['value'];
+                $this->Records->save($newRecords);
+            }            
         
         
         //formulaire edition
