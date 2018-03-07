@@ -12,7 +12,7 @@
     <?= $this->Html->css('cake.css') ?>
     
      <!--Notre fichier css situé dans webroot/css-->
-    <?= $this->Html->css('test.css') ?>
+    <?= $this->Html->css('default.css') ?>
      <!--Notre fichier javascript situé dans webroot/js-->
     <?= $this->Html->script('scripts.js') ?>
 
@@ -37,6 +37,14 @@
         </nav>-->
         
         <!--barre d'acceuil-->
+     <section id="entete">
+			<p id="img-texte">
+				<img src="C:\wamp64\www\nrjsite\webroot\img\logo.png" style="vertical-align:middle" alt="logo" height="150" width="150">
+                                Site sdfsd</p>
+                   			       
+         	</section>
+        
+        
         <div class="topnav">
             <a href="/nrjsite/management/accueil">Accueil</a>
             <a href="/nrjsite/management/inscription">Inscription</a>
@@ -45,13 +53,23 @@
             <a href="/nrjsite/management/carte">Carte</a>
         </div> 
         
+        
        
     <?= $this->Flash->render() ?>
         <div class="container clearfix">
         <?= $this->fetch('content') ?>
         </div> 
+        
+        
         <footer>
-  
-        </footer>
-    </body>
+	<p>
+		Copyright : Lara Brayelle
+	</p>
+	<p>
+		ING 4 - Energie & Envionnement 
+	</p>
+</footer>
+        
+        
+      </body>
 </html>
