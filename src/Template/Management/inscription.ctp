@@ -20,9 +20,9 @@
 <p>N'hésitez pas, c'est gratuit !</p>
 <?php
 echo $this->Form->create();
-echo $this->Form->input("Identifiant");
-echo $this->Form->input("Mot de passe",array('type'=>'password'));
-echo $this->Form->input("Vérification mot de passe",array('type'=>'password'));
+echo $this->Form->input("login",array('label'=>'Identifiant'));
+echo $this->Form->input("password",array('label'=>'Mot de passe','type'=>'password'));
+echo $this->Form->input("password_checking",array('label'=>'Vérification mot de passe','type'=>'password'));
 echo $this->Form->submit();
 echo $this->Form->end();
 ?>

@@ -7,13 +7,50 @@ use App\Controller\AppController;
 class ManagementController extends AppController {
 
     public function accueil() {
+        $counter=0;
+                
+        //connexion
+        $this->loadModel("Users");
+        $m=$this->Users->find();
         
+         if($this->request->is("post")){
+            $login=$this->request->data["login"];
+            $password=$this->request->data["password"];
+            
+            foreach ($m as $user){
+                
+                if($user->login==$login AND $user->passwd==$password) {                   
+                    $counter=1;
+                }
+            }
+            if ($counter==0) echo '<script language="Javascript"> alert ("vous êtes pas encore inscrit" )</script>';
+            else {
+                session_start();
+                $_SESSION['login'] = $login;
+                echo '<script language="Javascript"> alert ("vous êtes maintenant connecté !" )</script>';
+            }  
+         }   
+         
     }
+    
+    public function deconnexion() {
+          // Démarrage ou restauration de la session
+  session_start();
+  // Réinitialisation du tableau de session
+  // On le vide intégralement
+  $_SESSION = array();
+  // Destruction de la session
+  session_destroy();
+  // Destruction du tableau de session
+  unset($_SESSION);
+  
+  echo "<script> alert('Vous êtes déconnecté !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+    }
+    
 
     public function inscription() {
         $this->loadModel("Users");
         $new = $this->Users->newEntity();
-        
         
          if($this->request->is("post")){
             $new->login=$this->request->data["login"];
@@ -29,6 +66,17 @@ class ManagementController extends AppController {
     }
 
     public function listeSites() {
+        //test user connecté
+        session_start();
+        // On teste si la variable de session existe et contient une valeur
+        if(empty($_SESSION['login'])) 
+        {
+            //si l'user n'est pas connecté on redirige vers l'accueil
+            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+                         
+        }
+        else {
+        
         $this->loadModel('Sites');
       
         //trouver la liste des sites existants pour l'afficher
@@ -57,9 +105,20 @@ class ManagementController extends AppController {
             
         }
         $this->set('new', $new);
+        }
     }
 
     public function detailsSite($idsite) {
+        //test user connecté
+        session_start();
+        // On teste si la variable de session existe et contient une valeur
+        if(empty($_SESSION['login'])) 
+        {
+            //si l'user n'est pas connecté on redirige vers l'accueil
+            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+                         
+        }
+        else {
        
         $this->loadModel('Sites');
         $this->loadModel('Paths');
@@ -119,9 +178,20 @@ class ManagementController extends AppController {
     }
     
     $this->set('new', $new);
+        }
             }
 
     public function listeVoies() {
+        //test user connecté
+        session_start();
+        // On teste si la variable de session existe et contient une valeur
+        if(empty($_SESSION['login'])) 
+        {
+            //si l'user n'est pas connecté on redirige vers l'accueil
+            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+                         
+        }
+        else {
         $this->loadModel('Paths');
         $this->loadModel('Sites');
                
@@ -133,7 +203,7 @@ class ManagementController extends AppController {
         $m=$this->Sites->find();
         $this->set("m",$m);
         
-    }
+    }}
     
     public function deleteSite($id){
         
@@ -144,6 +214,16 @@ class ManagementController extends AppController {
     }
     
      public function carte() {
+         //test user connecté
+        session_start();
+        // On teste si la variable de session existe et contient une valeur
+        if(empty($_SESSION['login'])) 
+        {
+            //si l'user n'est pas connecté on redirige vers l'accueil
+            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+                         
+        }
+        else {
         $this->loadModel('Sites');
       
         //trouver la liste des sites existants pour l'afficher
@@ -178,7 +258,6 @@ $tab = $m->toArray();
       $this->set("name", $name);
       $this->set("stock", $stock);
 }
-
+}
  }
-   
 

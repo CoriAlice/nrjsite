@@ -9,7 +9,7 @@ foreach($m as $site){
    // echo $this->Form->create('Search', array('action'=>'isFeatured'));
     //echo"<td>".$this->Html->link("Delete",["controller"=>"Management","action"=>"liste_sites",$site->id,0])."</td>";
   // echo $this->Form->button('Submit Form', array('action'=>'delete_site'))
-    echo "<td>".$this->Html->link($this->Html->image("poubelle.png", array("alt" => "Brownies")),["controller"=>"Management","action"=>"delete_site",$site->id],array('confirm'=>'confirmer la suppression','escape' => false))."</td>";
+    echo "<td>".$this->Html->link($this->Html->image("poubelle.png", array("alt" => "suppression")),["controller"=>"Management","action"=>"delete_site",$site->id],array('confirm'=>'confirmer la suppression','escape' => false))."</td>";
     echo "</tr>";
 }
 ?>
@@ -18,7 +18,7 @@ foreach($m as $site){
 <section class="large-6">
     <h4>Ajouter un nouveau site</h4>
 <?= $this->Form->create() ?>
-<?= $this->Form->input('name') ?>
+<?= $this->Form->input('name',array('label'=>'Nom')) ?>
 <?= $this->Form->input('type',array('options' => array(
     'consumer' => 'consumer',
     'producer' => 'producer')))?>
