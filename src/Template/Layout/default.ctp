@@ -39,7 +39,7 @@
         <!--barre d'acceuil-->
      <section id="entete">
 			<p id="img-texte">
-				<img src="C:\wamp64\www\nrjsite\webroot\img\logo.png" style="vertical-align:middle" alt="logo" height="150" width="150">
+				<img src="\nrjsite\webroot\img\logo.png" style="vertical-align:middle" alt="logo" height="150" width="150">
                                 Site sdfsd</p>
                    			       
          	</section>
