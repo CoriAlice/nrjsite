@@ -14,7 +14,7 @@
 <img src="../webroot/img/energies.jpg" alt="img_inscription">
 </aside>
 
-<section class="large-6">
+<section id="inscription">
     
 <h2>Inscription</h2>
 <p>N'hésitez pas, c'est gratuit !</p>

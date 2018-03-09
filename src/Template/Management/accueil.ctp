@@ -13,6 +13,7 @@
     
      <!--Notre fichier css situé dans webroot/css-->
     <?= $this->Html->css('default.css') ?>
+      <?= $this->Html->css('accueil.css') ?>
      <!--Notre fichier javascript situé dans webroot/js-->
     <?= $this->Html->script('scripts.js') ?>
 
@@ -24,10 +25,12 @@
     
     <body>
 
-
-<section>
+        <aside>
+<img src="../webroot/img/welcome.png" alt="img_connexion">
+</aside>
+<section id="connexion">
     
-<h4>Connexion</h4>
+<h2>Connexion</h2>
 
 
 
@@ -39,13 +42,15 @@ echo $this->Form->submit();
 echo $this->Form->end();
 ?>
 
-</section>
+
 
 <?php 
     echo $this->Html->link($this->Html->image("logout.png", array("alt" => "deconnexion")),["controller"=>"Management","action"=>"deconnexion"],array('escape' => false));
 ?>
 
+  </section>    
         
+
         
     </body>
     
