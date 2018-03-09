@@ -6,28 +6,18 @@ html { overflow-y:auto }
 
 #entete{
 text-align: center;
+
 }
 
-#img-texte{
-   
-    color:#EF8F34;
-    display: inline-block;
-    font-size: x-large;
+#entete h1 {
     
-   }
-   
-   #img-texte img {
-    float:left;
-    margin-right:15px;
-    
-   
+    color: #EF8F34;
 }
 
 
-figure {
-    
-    
-}
+
+
+
 
 
 /* Add a black background color to the top navigation */

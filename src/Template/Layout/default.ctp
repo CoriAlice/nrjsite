@@ -37,10 +37,10 @@
         </nav>-->
         
         <!--barre d'acceuil-->
-     <section id="entete">
-			<p id="img-texte">
-				<img src="\nrjsite\webroot\img\logo.png" style="vertical-align:middle" alt="logo" height="150" width="150">
-                                Site sdfsd</p>
+     <section id="entete">			
+				<img src="\nrjsite\webroot\img\logo.png" alt="logo" height="150" width="150">
+                                <h1> Energy Datas </h1>
+                                <h5> Le seul site répertoriant l'intégralité des sites de production d'énergie </h5>
                    			       
          	</section>
         
@@ -63,7 +63,7 @@
         
         <footer>
 	<p>
-		Copyright : Lara Brayelle
+		Alice Cori - Agathe Henry - Lara Brayelle - Clément Saudreau
 	</p>
 	<p>
 		ING 4 - Energie & Envionnement 
