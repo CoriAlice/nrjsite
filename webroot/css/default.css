@@ -29,7 +29,6 @@ text-align: center;
 
 /* Style the links inside the navigation bar */
 .topnav a {
-    float: left;
     color: #FFFFFF;
     text-align: center;
     padding: 14px 16px;
@@ -46,12 +45,17 @@ text-align: center;
 }
 
 
-.topnav img{
-    width: 30px;
-    height: 30px;
-    float: right;
-  margin-top: 10px;
-    
+#bouton_deco{
+    width: 20px;
+    height: 20px;
+   
+}
+.topnav a:nth-last-of-type(1)
+{
+    float:right;
+}
+.topnav a:nth-last-of-type(1):hover{
+    background-color: transparent;
     
 }
 

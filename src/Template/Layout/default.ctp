@@ -51,12 +51,16 @@
             <a href="/nrjsite/management/liste-sites">Les sites</a>
             <a href="/nrjsite/management/liste-voies">Les voies</a>
             <a href="/nrjsite/management/carte">Carte</a>
-            <img         
+           
 <?php 
-    echo $this->Html->link($this->Html->image("logout.png", array("alt" => "deconnexion")),["controller"=>"Management","action"=>"deconnexion"],array('escape' => false));
-?>
-        
-        </div> 
+//    echo $this->Html->link($this->Html->image("logout.png", array("alt" => "deconnexion")),["controller"=>"Management","action"=>"deconnexion"],array('escape' => false));
+
+    echo $this->Html->image("logout.png", [
+    "alt" => "deconnexion",
+    "id" => "bouton_deco",
+    'url' => ['controller' => 'Management', 'action' => 'deconnexion']]);
+    ?>
+             </div> 
         
         
        
