@@ -1,4 +1,40 @@
 
+<!DOCTYPE html>
+<html>
+    <head>
+    <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+function OnOff() {
+    
+if (document.getElementById("le_texte").style.display == "block")
+document.getElementById("le_texte").style.display = "none";
+else
+document.getElementById("le_texte").style.display = "block";
+}
+</script>
+
+        <title>
+        <?= $this->fetch('title') ?>
+        </title>
+    <?= $this->Html->meta('icon') ?>
+
+    <?= $this->Html->css('base.css') ?>
+    <?= $this->Html->css('cake.css') ?>
+    
+     <!--Notre fichier css situé dans webroot/css-->
+    <?= $this->Html->css('liste_sites.css') ?>
+     <!--Notre fichier javascript situé dans webroot/js-->
+    <?= $this->Html->script('scripts.js') ?>
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
+    </head>
+    <body>
+        
+        
+        <h2> Liste des sites </h2>
 <table>
 <?php 
 foreach($m as $site){
@@ -14,18 +50,28 @@ foreach($m as $site){
 }
 ?>
 </table>
-
-<section class="large-6">
-    <h4>Ajouter un nouveau site</h4>
-<?= $this->Form->create() ?>
-<?= $this->Form->input('name',array('label'=>'Nom')) ?>
-<?= $this->Form->input('type',array('options' => array(
+        
+    <center><button class="button" onclick="OnOff();">Ajouter un nouveau site</button></center>
+    
+    <span id="le_texte" style="display:none;">
+    <br>
+ 
+    <?php      
+ echo $this->Form->create();
+  echo $this->Form->input('name',array('label'=>'Nom'));
+  echo $this->Form->input('type',array('options' => array(
     'consumer' => 'consumer',
-    'producer' => 'producer')))?>
-<?= $this->Form->input('location_x',array('label'=>'Latitude','type'=>'number')) ?>
-<?= $this->Form->input('location_y',array('label'=>'Longitude','type'=>'number')) ?>
-<?= $this->Form->input('stock',['type'=>'number']) ?>
-<?= $this->Form->submit() ?>
-<?= $this->Form->end() ?>
-</section>
+    'producer' => 'producer')));
+ echo $this->Form->input('location_x',array('label'=>'Latitude','type'=>'number'));
+ echo $this->Form->input('location_y',array('label'=>'Longitude','type'=>'number')) ;
+ echo $this->Form->input('stock',['type'=>'number']);
+ echo $this->Form->submit("Valider") ;
+ echo $this->Form->end();
+ ?>
+    </span><br>
 
+
+    </body>
+    
+    
+    </html>
