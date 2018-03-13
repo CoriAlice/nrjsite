@@ -25,11 +25,11 @@ class ManagementController extends AppController {
                 }
             }
             if ($counter == 0)
-                echo '<script language="Javascript"> alert ("vous êtes pas encore inscrit" )</script>';
+                echo '<script language="Javascript"> alert ("Vous êtes pas encore inscrit !" )</script>';
             else {
                 session_start();
                 $_SESSION['login'] = $login;
-                echo '<script language="Javascript"> alert ("vous êtes maintenant connecté !" )</script>';
+                echo '<script language="Javascript"> alert ("Vous êtes maintenant connecté !" )</script>';
             }
         }
     }
@@ -60,7 +60,7 @@ class ManagementController extends AppController {
             if ($new->passwd == $checkpasswd)
                 $this->Users->save($new);
             else
-                echo '<script language="Javascript"> alert ("password non identique" )</script>';
+                echo '<script language="Javascript"> alert ("Mot de passe non identique" )</script>';
         }
         $this->set("new", $new);
     }
@@ -88,7 +88,7 @@ class ManagementController extends AppController {
                         $this->request->data['type'] != 'consumer') ||
                         ($this->request->data['stock'] < 0) ||
                         ($this->request->data['location_x'] < -90) || ($this->request->data['location_x'] > 90) || ($this->request->data['location_y'] < -180) || ($this->request->data['location_x'] > 180))
-                    echo '<script language="Javascript"> alert ("saisie non valide" )</script>';
+                    echo '<script language="Javascript"> alert ("Saisie non valide" )</script>';
 
                 else {
                     $new->name = $this->request->data['name'];
@@ -180,7 +180,7 @@ class ManagementController extends AppController {
                         $this->request->data['type'] != 'consumer') ||
                         ($this->request->data['stock'] < 0) ||
                         ($this->request->data['location_x'] < -90) || ($this->request->data['location_x'] > 90) || ($this->request->data['location_y'] < -180) || ($this->request->data['location_x'] > 180))
-                    echo '<script language="Javascript"> alert ("saisie non valide" )</script>';
+                    echo '<script language="Javascript"> alert ("Saisie non valide" )</script>';
 
                 else {
                     $new->name = $this->request->data['name'];
