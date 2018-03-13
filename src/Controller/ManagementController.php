@@ -20,12 +20,12 @@ class ManagementController extends AppController {
 
             foreach ($m as $user) {
 
-                if ($user->login == $login AND $user->passwd == $password) {
+                if ($user->login == $login AND password_verify($password,$user->passwd)) {
                     $counter = 1;
                 }
             }
             if ($counter == 0)
-                echo '<script language="Javascript"> alert ("Vous êtes pas encore inscrit !" )</script>';
+                echo '<script language="Javascript"> alert ("Vous êtes pas encore inscrit ou votre mot de passe est invalide !" )</script>';
             else {
                 session_start();
                 $_SESSION['login'] = $login;
@@ -55,10 +55,13 @@ class ManagementController extends AppController {
 
         if ($this->request->is("post")) {
             $new->login = $this->request->data["login"];
-            $new->passwd = $this->request->data["password"];
+            $password=$this->request->data["password"];
+            $passwordhash=password_hash($password, PASSWORD_DEFAULT);
+          
+            $new->passwd =password_hash($this->request->data["password"], PASSWORD_DEFAULT); 
             $checkpasswd = $this->request->data["password_checking"];
 
-            if ($new->passwd == $checkpasswd)
+            if (password_verify($checkpasswd,$new->passwd))
                 $this->Users->save($new);
             else
                 echo '<script language="Javascript"> alert ("Mot de passe non identique" )</script>';
