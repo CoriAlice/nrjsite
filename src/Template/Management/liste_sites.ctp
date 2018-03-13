@@ -24,6 +24,7 @@ document.getElementById("le_texte").style.display = "block";
     
      <!--Notre fichier css situé dans webroot/css-->
     <?= $this->Html->css('liste_sites.css') ?>
+    <?= $this->Html->css('default.css') ?>
      <!--Notre fichier javascript situé dans webroot/js-->
     <?= $this->Html->script('scripts.js') ?>
 
@@ -33,18 +34,23 @@ document.getElementById("le_texte").style.display = "block";
     </head>
     <body>
         
-        
         <h2> Liste des sites </h2>
 <table>
+     <tr>
+                <th>Nom du site</th>
+                <th>Afficher le détail</th>
+                <th>Supprimer</th>
+            </tr>
 <?php 
 foreach($m as $site){
     echo"<tr>";
     echo"<td>".$site->name."</td>";
-    echo"<td>".$this->Html->link("details",["controller"=>"Management","action"=>"details_site",$site->id])."</td>";
-   // echo "<td><button type='button'>Delete!</button></td>";
-   // echo $this->Form->create('Search', array('action'=>'isFeatured'));
-    //echo"<td>".$this->Html->link("Delete",["controller"=>"Management","action"=>"liste_sites",$site->id,0])."</td>";
-  // echo $this->Form->button('Submit Form', array('action'=>'delete_site'))
+    //echo"<td>".$this->Html->link("details",["controller"=>"Management","action"=>"details_site",$site->id])."</td>";
+     echo "<td>".$this->Html->image("loupe.png", [
+    "alt" => "details",
+    "id" => "bouton_deco",
+    'url' => ['controller' => 'Management', 'action' => 'details_site',$site->id]])."</td>";
+ // echo "<td>".$this->Html->link($this->Html->image("loupe.png", array("alt" => "suppression")),["controller"=>"Management","action"=>"details_site",$site->id],array('escape' => false))."</td>";
     echo "<td>".$this->Html->link($this->Html->image("poubelle.png", array("alt" => "suppression")),["controller"=>"Management","action"=>"delete_site",$site->id],array('confirm'=>'confirmer la suppression','escape' => false))."</td>";
     echo "</tr>";
 }

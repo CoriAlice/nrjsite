@@ -2,6 +2,7 @@
     <head>
      <!--Notre fichier css situé dans webroot/css-->
     <?= $this->Html->css('liste_voies.css') ?>
+    <?= $this->Html->css('default.css') ?>
      <!--Notre fichier javascript situé dans webroot/js-->
     <?= $this->Html->script('scripts.js') ?>
 
