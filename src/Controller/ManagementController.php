@@ -45,7 +45,8 @@ class ManagementController extends AppController {
         // Destruction du tableau de session
         unset($_SESSION);
 
-        echo "<script> alert('Vous êtes déconnecté !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+        return $this->redirect(['action'=>'accueil']);
+        //echo "<script> alert('Vous êtes déconnecté !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
     }
 
     public function inscription() {
@@ -71,7 +72,9 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+           // echo "<script> alert('Page sécurisée, il faut vous connecter !')</script>";
+            $this->redirect(['action'=>'accueil']);
+            
         } else {
 
             $this->loadModel('Sites');
@@ -109,7 +112,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+             $this->redirect(['action'=>'accueil']);
         } else {
 
             $this->loadModel('Sites');
@@ -242,7 +246,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+             $this->redirect(['action'=>'accueil']);
         } else {
             $this->loadModel('Paths');
             $this->loadModel('Sites');
@@ -272,7 +277,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+             $this->redirect(['action'=>'accueil']);
         } else {
             $this->loadModel('Sites');
 
