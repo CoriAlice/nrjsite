@@ -51,6 +51,11 @@
             <a href="/nrjsite/management/liste-sites">Les sites</a>
             <a href="/nrjsite/management/liste-voies">Les voies</a>
             <a href="/nrjsite/management/carte">Carte</a>
+            <img         
+<?php 
+    echo $this->Html->link($this->Html->image("logout.png", array("alt" => "deconnexion")),["controller"=>"Management","action"=>"deconnexion"],array('escape' => false));
+?>
+        
         </div> 
         
         
@@ -60,6 +65,8 @@
         <?= $this->fetch('content') ?>
         </div> 
         
+   
+        
         
         <footer>
 	<p>
@@ -67,6 +74,9 @@
 	</p>
 	<p>
 		ING 4 - Energie & Envionnement 
+	</p>
+        <p>
+		Gr1-10-DE
 	</p>
 </footer>
         

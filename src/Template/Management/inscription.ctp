@@ -23,7 +23,7 @@ echo $this->Form->create();
 echo $this->Form->input("login",array('label'=>'Identifiant'));
 echo $this->Form->input("password",array('label'=>'Mot de passe','type'=>'password'));
 echo $this->Form->input("password_checking",array('label'=>'Vérification mot de passe','type'=>'password'));
-echo $this->Form->submit();
+echo $this->Form->submit("Valider");
 echo $this->Form->end();
 ?>
 </section>
