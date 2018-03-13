@@ -1,4 +1,4 @@
-<?= $this->Html->css('test.css') ?>
+
 
 <ul id="detailsSite">
     <?php
