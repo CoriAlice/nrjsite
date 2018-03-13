@@ -168,17 +168,24 @@ class ManagementController extends AppController {
 
                 $total=$total+$record->value;
             }
-            $moyenne=$total/sizeof($listeRecordsDuSite);
-            $this->set("moyenne", $moyenne);
             //relevé max et min
             $valeurs=array();
             foreach ($listeRecordsDuSite as $record) {
 
                 $valeurs[]=$record->value;
             }
-            $max=max($valeurs);
+            if(sizeof($listeRecordsDuSite)==0){
+               $moyenne=0; 
+               $max=0;
+               $min=0;
+            }
+            else {
+                $moyenne=$total/sizeof($listeRecordsDuSite);
+                $max=max($valeurs);
+                $min=min($valeurs);
+            }
+            $this->set("moyenne", $moyenne);
             $this->set("max", $max);
-            $min=min($valeurs);
             $this->set("min", $min);
             //somme des débits des voies
             $voies=$this->Paths->find();
