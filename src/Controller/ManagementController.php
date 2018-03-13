@@ -146,8 +146,7 @@ class ManagementController extends AppController {
                     }
                 }
             }
-
-
+            
             //liste des relevés du site
             $this->loadModel('Records');
             $listeRecords = $this->Records->find();
@@ -160,6 +159,40 @@ class ManagementController extends AppController {
                     $listeRecordsDuSite[] = $record;
             }
             $this->set("listeRecordsDuSite", $listeRecordsDuSite);
+            
+            //analyse données 
+            //relevé moyen
+            $moyenne;
+            $total=0;
+            foreach ($listeRecordsDuSite as $record) {
+
+                $total=$total+$record->value;
+            }
+            $moyenne=$total/sizeof($listeRecordsDuSite);
+            $this->set("moyenne", $moyenne);
+            //relevé max et min
+            $valeurs=array();
+            foreach ($listeRecordsDuSite as $record) {
+
+                $valeurs[]=$record->value;
+            }
+            $max=max($valeurs);
+            $this->set("max", $max);
+            $min=min($valeurs);
+            $this->set("min", $min);
+            //somme des débits des voies
+            $voies=$this->Paths->find();
+            $voiesdusite=array();
+            foreach ($voies as $voie) {
+                if($voie->starting_site_id==$idsite OR $voie->ending_site_id==$idsite) $voiesdusite[]=$voie;
+            }
+            $sommedebitvoies=0;
+            foreach ($voiesdusite as $voie) {
+
+                 $sommedebitvoies=$sommedebitvoies+$voie->max_capacity;
+            }
+            $this->set("somme", $sommedebitvoies);
+            
 
             //formulaire nouveau relevé
             $newRecords = $this->Records->newEntity();
@@ -222,6 +255,8 @@ class ManagementController extends AppController {
         $this->loadModel('Sites');
         $entity = $this->Sites->get($id);
         $result = $this->Sites->delete($entity);
+        
+        $this->redirect(['controller'=>'Management','action'=>'liste_sites']);
     }
 
     public function carte() {

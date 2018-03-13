@@ -1,4 +1,4 @@
-<?= $this->Html->css('test.css') ?>
+
 
 <ul id="detailsSite">
     <?php
@@ -22,6 +22,21 @@
     }
     ?>
 </table>
+<?php
+if($new->type=='producer'){
+echo "Production moyenne : ".number_format($moyenne,2);
+echo "Production maximume relevée : ".$max;
+echo "Production minimume relevée : ".$min;
+}
+if($new->type=='consumer'){
+echo "Consommation moyenne : ".number_format($moyenne,2);
+echo "Consommation maximume relevée : ".$max;
+echo "Production minimume relevée : ".$min;
+}
+
+echo "Capacité totale d'approvisionnement : ".$somme;
+
+?>
 
 <!--ajouter un relevé-->
 <section class="large-6">
