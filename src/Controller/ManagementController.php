@@ -137,9 +137,20 @@ class ManagementController extends AppController {
                     }
                 }
             }
+            
+            //formulaire nouveau relevé
+            $this->loadModel('Records');
+            $newRecords = $this->Records->newEntity();
+            $now = Time::now();
+            $now->timezone = 'Europe/Paris';
+            if ($this->request->is('post') && $this->request->getData('submit') == 'Ajouter le relevé') {
+                $newRecords->site_id = $idsite;
+                $newRecords->date = $now;
+                $newRecords->value = $this->request->data['value'];
+                $this->Records->save($newRecords);
+            }
 
             //liste des relevés du site
-            $this->loadModel('Records');
             $listeRecords = $this->Records->find();
 
             $listeRecordsDuSite = array();
@@ -190,18 +201,6 @@ class ManagementController extends AppController {
                 $sommedebitvoies = $sommedebitvoies + $voie->max_capacity;
             }
             $this->set("somme", $sommedebitvoies);
-
-
-            //formulaire nouveau relevé
-            $newRecords = $this->Records->newEntity();
-            $now = Time::now();
-            $now->timezone = 'Europe/Paris';
-            if ($this->request->is('post') && $this->request->getData('submit') == 'Ajouter le relevé') {
-                $newRecords->site_id = $idsite;
-                $newRecords->date = $now;
-                $newRecords->value = $this->request->data['value'];
-                $this->Records->save($newRecords);
-            }
 
 
             //formulaire edition du site
