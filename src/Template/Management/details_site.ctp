@@ -92,7 +92,7 @@ echo "Capacité totale d'approvisionnement : ".$somme;
     <?= $this->Form->input('value', array('label' => 'Valeur', 'type' => 'number')) ?>
     <?= $this->Form->submit('Ajouter le relevé', array('name' => 'submit')) ?>
     <?= $this->Form->end() ?>
-</span>
+</span><br>
 
 
 <!--ajouter voies-->
@@ -107,7 +107,7 @@ echo "Capacité totale d'approvisionnement : ".$somme;
     <?= $this->Form->input('name', array('label' => 'Nom de la voie')) ?>
     <?= $this->Form->submit('Ajouter la voie', array('name' => 'submit')) ?>
     <?= $this->Form->end() ?>
-</span>
+</span><br>
 
 
 <!--Formulaire d'edition à cacher et à dévoiler avec javascript-->
@@ -128,7 +128,7 @@ echo "Capacité totale d'approvisionnement : ".$somme;
     <?= $this->Form->input('stock', ['type' => 'number']) ?>
 <?= $this->Form->submit('Editer', array('label' => 'Editer', 'name' => 'submit')) ?>
 <?= $this->Form->end() ?>
-</span>
+</span><br>
 
 </html>
 
