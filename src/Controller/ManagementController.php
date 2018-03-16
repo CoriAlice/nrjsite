@@ -20,12 +20,12 @@ class ManagementController extends AppController {
 
             foreach ($m as $user) {
 
-                if ($user->login == $login AND $user->passwd == $password) {
+                if ($user->login == $login AND password_verify($password, $user->passwd)) {
                     $counter = 1;
                 }
             }
             if ($counter == 0)
-                echo '<script language="Javascript"> alert ("Vous êtes pas encore inscrit !" )</script>';
+                echo '<script language="Javascript"> alert ("Vous êtes pas encore inscrit ou votre mot de passe est invalide !" )</script>';
             else {
                 session_start();
                 $_SESSION['login'] = $login;
@@ -45,7 +45,8 @@ class ManagementController extends AppController {
         // Destruction du tableau de session
         unset($_SESSION);
 
-        echo "<script> alert('Vous êtes déconnecté !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+        return $this->redirect(['action' => 'accueil']);
+        //echo "<script> alert('Vous êtes déconnecté !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
     }
 
     public function inscription() {
@@ -54,15 +55,17 @@ class ManagementController extends AppController {
 
         if ($this->request->is("post")) {
             $new->login = $this->request->data["login"];
-            $new->passwd = $this->request->data["password"];
+            $password = $this->request->data["password"];
+            $passwordhash = password_hash($password, PASSWORD_DEFAULT);
+
+            $new->passwd = password_hash($this->request->data["password"], PASSWORD_DEFAULT);
             $checkpasswd = $this->request->data["password_checking"];
 
-            if ($new->passwd == $checkpasswd)
+            if (password_verify($checkpasswd, $new->passwd))
                 $this->Users->save($new);
             else
                 echo '<script language="Javascript"> alert ("Mot de passe non identique" )</script>';
         }
-        $this->set("new", $new);
     }
 
     public function listeSites() {
@@ -71,7 +74,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            // echo "<script> alert('Page sécurisée, il faut vous connecter !')</script>";
+            $this->redirect(['action' => 'accueil']);
         } else {
 
             $this->loadModel('Sites');
@@ -84,22 +88,8 @@ class ManagementController extends AppController {
             $new = $this->Sites->newEntity();
             if ($this->request->is('post')) {
 
-                if (($this->request->data['type'] != 'producer' AND
-                        $this->request->data['type'] != 'consumer') ||
-                        ($this->request->data['stock'] < 0) ||
-                        ($this->request->data['location_x'] < -90) || ($this->request->data['location_x'] > 90) || ($this->request->data['location_y'] < -180) || ($this->request->data['location_x'] > 180))
-                    echo '<script language="Javascript"> alert ("Saisie non valide" )</script>';
-
-                else {
-                    $new->name = $this->request->data['name'];
-                    $new->type = $this->request->data['type'];
-                    $new->location_x = $this->request->data['location_x'];
-                    $new->location_y = $this->request->data['location_y'];
-                    $new->stock = $this->request->data['stock'];
-                    $this->Sites->save($new);
-                }
+                $this->Sites->checkAndsave($this->request->data, $new);
             }
-            $this->set('new', $new);
         }
     }
 
@@ -109,13 +99,14 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            $this->redirect(['action' => 'accueil']);
         } else {
 
             $this->loadModel('Sites');
             $this->loadModel('Paths');
 
-            $new = $this->Sites->get($idsite);
+            $siteactuel = $this->Sites->get($idsite);
 
             //trouver les sites existants
             $m = $this->Sites->find();
@@ -124,7 +115,7 @@ class ManagementController extends AppController {
             $tabSitesTries = array();
 
             foreach ($m as $site) {
-                if ($site->type != $new->type)
+                if ($site->type != $siteactuel->type)
                     $tabSitesTries[] = $site->name;
             }
             $this->set("tabSitesTries", $tabSitesTries);
@@ -139,7 +130,7 @@ class ManagementController extends AppController {
                 foreach ($m as $site) {
                     if ($site->name == $sitename) {
                         $newPath->ending_site_id = $site->id;
-                        $newPath->starting_site_id = $new->id;
+                        $newPath->starting_site_id = $idsite;
                         $newPath->max_capacity = $this->request->data['max_capacity'];
                         $newPath->name = $this->request->data['name'];
                         $this->Paths->save($newPath);
@@ -147,61 +138,8 @@ class ManagementController extends AppController {
                 }
             }
             
-            //liste des relevés du site
-            $this->loadModel('Records');
-            $listeRecords = $this->Records->find();
-
-            $listeRecordsDuSite = array();
-
-            foreach ($listeRecords as $record) {
-
-                if ($record->site_id == $idsite)
-                    $listeRecordsDuSite[] = $record;
-            }
-            $this->set("listeRecordsDuSite", $listeRecordsDuSite);
-            
-            //analyse données 
-            //relevé moyen
-            $moyenne;
-            $total=0;
-            foreach ($listeRecordsDuSite as $record) {
-
-                $total=$total+$record->value;
-            }
-            //relevé max et min
-            $valeurs=array();
-            foreach ($listeRecordsDuSite as $record) {
-
-                $valeurs[]=$record->value;
-            }
-            if(sizeof($listeRecordsDuSite)==0){
-               $moyenne=0; 
-               $max=0;
-               $min=0;
-            }
-            else {
-                $moyenne=$total/sizeof($listeRecordsDuSite);
-                $max=max($valeurs);
-                $min=min($valeurs);
-            }
-            $this->set("moyenne", $moyenne);
-            $this->set("max", $max);
-            $this->set("min", $min);
-            //somme des débits des voies
-            $voies=$this->Paths->find();
-            $voiesdusite=array();
-            foreach ($voies as $voie) {
-                if($voie->starting_site_id==$idsite OR $voie->ending_site_id==$idsite) $voiesdusite[]=$voie;
-            }
-            $sommedebitvoies=0;
-            foreach ($voiesdusite as $voie) {
-
-                 $sommedebitvoies=$sommedebitvoies+$voie->max_capacity;
-            }
-            $this->set("somme", $sommedebitvoies);
-            
-
             //formulaire nouveau relevé
+            $this->loadModel('Records');
             $newRecords = $this->Records->newEntity();
             $now = Time::now();
             $now->timezone = 'Europe/Paris';
@@ -212,27 +150,66 @@ class ManagementController extends AppController {
                 $this->Records->save($newRecords);
             }
 
+            //liste des relevés du site
+            $listeRecords = $this->Records->find();
 
-            //formulaire edition
+            $listeRecordsDuSite = array();
+
+            foreach ($listeRecords as $record) {
+
+                if ($record->site_id == $idsite)
+                    $listeRecordsDuSite[] = $record;
+            }
+            $this->set("listeRecordsDuSite", $listeRecordsDuSite);
+
+            //analyse données 
+            //relevé moyen
+            $moyenne;
+            $total = 0;
+            foreach ($listeRecordsDuSite as $record) {
+
+                $total = $total + $record->value;
+            }
+            //relevé max et min
+            $valeurs = array();
+            foreach ($listeRecordsDuSite as $record) {
+
+                $valeurs[] = $record->value;
+            }
+            if (sizeof($listeRecordsDuSite) == 0) {
+                $moyenne = 0;
+                $max = 0;
+                $min = 0;
+            } else {
+                $moyenne = $total / sizeof($listeRecordsDuSite);
+                $max = max($valeurs);
+                $min = min($valeurs);
+            }
+            $this->set("moyenne", $moyenne);
+            $this->set("max", $max);
+            $this->set("min", $min);
+            //somme des débits des voies
+            $voies = $this->Paths->find();
+            $voiesdusite = array();
+            foreach ($voies as $voie) {
+                if ($voie->starting_site_id == $idsite OR $voie->ending_site_id == $idsite)
+                    $voiesdusite[] = $voie;
+            }
+            $sommedebitvoies = 0;
+            foreach ($voiesdusite as $voie) {
+
+                $sommedebitvoies = $sommedebitvoies + $voie->max_capacity;
+            }
+            $this->set("somme", $sommedebitvoies);
+
+
+            //formulaire edition du site
             if ($this->request->is(['post', 'put']) && $this->request->getData('submit') == 'Editer') {
 
-                if (($this->request->data['type'] != 'producer' AND
-                        $this->request->data['type'] != 'consumer') ||
-                        ($this->request->data['stock'] < 0) ||
-                        ($this->request->data['location_x'] < -90) || ($this->request->data['location_x'] > 90) || ($this->request->data['location_y'] < -180) || ($this->request->data['location_x'] > 180))
-                    echo '<script language="Javascript"> alert ("Saisie non valide" )</script>';
-
-                else {
-                    $new->name = $this->request->data['name'];
-                    $new->type = $this->request->data['type'];
-                    $new->location_x = $this->request->data['location_x'];
-                    $new->location_y = $this->request->data['location_y'];
-                    $new->stock = $this->request->data['stock'];
-                    $this->Sites->save($new);
-                }
+                $this->Sites->checkAndsave($this->request->data, $siteactuel);
             }
 
-            $this->set('new', $new);
+            $this->set('siteactuel', $siteactuel);
         }
     }
 
@@ -242,7 +219,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            $this->redirect(['action' => 'accueil']);
         } else {
             $this->loadModel('Paths');
             $this->loadModel('Sites');
@@ -262,8 +240,8 @@ class ManagementController extends AppController {
         $this->loadModel('Sites');
         $entity = $this->Sites->get($id);
         $result = $this->Sites->delete($entity);
-        
-        $this->redirect(['controller'=>'Management','action'=>'liste_sites']);
+
+        $this->redirect(['controller' => 'Management', 'action' => 'liste_sites']);
     }
 
     public function carte() {
@@ -272,7 +250,8 @@ class ManagementController extends AppController {
         // On teste si la variable de session existe et contient une valeur
         if (empty($_SESSION['login'])) {
             //si l'user n'est pas connecté on redirige vers l'accueil
-            echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            //echo "<script> alert('Page sécurisée, il faut vous connecter !');window.location.href='http://localhost/nrjsite/management/accueil';</script>";
+            $this->redirect(['action' => 'accueil']);
         } else {
             $this->loadModel('Sites');
 

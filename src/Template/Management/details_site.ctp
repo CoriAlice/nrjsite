@@ -40,11 +40,11 @@ document.getElementById("site").style.display = "block";
 
 <ul id="detailsSite">
     <?php
-    echo "<li>Nom : " . $new->name . "</li>";
-    echo "<li>Type : " . $new->type . "</li>";
-    echo "<li>Latitude : " . $new->location_x . "</li>";
-    echo "<li>Longitude : " . $new->location_y . "</li>";
-    echo "<li>Stock : " . $new->stock . "</li>";
+    echo "<li>Nom : " . $siteactuel->name . "</li>";
+    echo "<li>Type : " . $siteactuel->type . "</li>";
+    echo "<li>Latitude : " . $siteactuel->location_x . "</li>";
+    echo "<li>Longitude : " . $siteactuel->location_y . "</li>";
+    echo "<li>Stock : " . $siteactuel->stock . "</li>";
     ?>
 </ul>
 
@@ -65,12 +65,12 @@ document.getElementById("site").style.display = "block";
     ?>
 </table>
 <?php
-if($new->type=='producer'){
+if($siteactuel->type=='producer'){
 echo "Production moyenne : ".number_format($moyenne,2);
 echo "Production maximume relevée : ".$max;
 echo "Production minimume relevée : ".$min;
 }
-if($new->type=='consumer'){
+if($siteactuel->type=='consumer'){
 echo "Consommation moyenne : ".number_format($moyenne,2);
 echo "Consommation maximume relevée : ".$max;
 echo "Production minimume relevée : ".$min;
@@ -116,7 +116,7 @@ echo "Capacité totale d'approvisionnement : ".$somme;
 <span id="site" style="display:none;">
     <br>
 
-    <?= $this->Form->create($new) ?>
+    <?= $this->Form->create($siteactuel) ?>
     <?= $this->Form->input('name', array('label' => 'Nom')) ?>
     <?=
     $this->Form->input('type', array('options' => array(
