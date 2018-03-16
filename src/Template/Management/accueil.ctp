@@ -32,6 +32,9 @@
     
 <h2>Connexion</h2>
 
+<p>
+    Pour accéder aux pages du site, veuillez vous connecter ou vous inscrire. 
+</p>
 
 
 <?php

@@ -48,10 +48,10 @@ foreach($m as $site){
     //echo"<td>".$this->Html->link("details",["controller"=>"Management","action"=>"details_site",$site->id])."</td>";
      echo "<td>".$this->Html->image("loupe.png", [
     "alt" => "details",
-    "id" => "bouton_deco",
+    "id" => "bouton_loupe",
     'url' => ['controller' => 'Management', 'action' => 'details_site',$site->id]])."</td>";
  // echo "<td>".$this->Html->link($this->Html->image("loupe.png", array("alt" => "suppression")),["controller"=>"Management","action"=>"details_site",$site->id],array('escape' => false))."</td>";
-    echo "<td>".$this->Html->link($this->Html->image("poubelle.png", array("alt" => "suppression")),["controller"=>"Management","action"=>"delete_site",$site->id],array('confirm'=>'confirmer la suppression','escape' => false))."</td>";
+    echo "<td>".$this->Html->link($this->Html->image("poubelle.png", ["id"=>"bouton_supp"], array("alt" => "suppression")),["controller"=>"Management","action"=>"delete_site",$site->id],array('confirm'=>'confirmer la suppression','escape' => false))."</td>";
     echo "</tr>";
 }
 ?>

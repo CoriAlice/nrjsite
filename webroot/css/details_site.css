@@ -2,12 +2,20 @@
     font-weight: bold;
     color: #4079A4;
     margin-left: 5%;
+    line-height: 5px;
 }
 
 #voies p{
     font-style: italic;
     margin-left: 5%;
 }
+#voies h4{
+    color: #4079A4;
+     font-weight: bold;
+     margin-left: 5%;
+}
+
+
 
 #relevé {
    margin-left: auto;

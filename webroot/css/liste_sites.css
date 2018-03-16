@@ -5,6 +5,22 @@
    width: 20em;
 }
 
+#bouton_supp{
+    
+    width: 22px;
+    height: 22px;
+    margin-left: 25px;
+}
+
+#bouton_loupe{
+    
+    width: 22px;
+    height: 22px;
+    margin-left: 50px;
+}
+
+
+
 .button {
   font-size: 12px;
   cursor: pointer;

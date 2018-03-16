@@ -10,6 +10,11 @@
      font-weight: bold;
 
   }
+  #connexion p {
+    font-style: italic;
+  }
+    
+
   aside {
     float: left;
     margin-left: 80px;

@@ -38,16 +38,30 @@ document.getElementById("site").style.display = "block";
         <p>Retrouvez toutes les informations concernant le site sélectionné.</p>
         <br/>
 
-<ul id="detailsSite">
-    <?php
-    echo "<li>Nom : " . $siteactuel->name . "</li>";
-    echo "<li>Type : " . $siteactuel->type . "</li>";
-    echo "<li>Latitude : " . $siteactuel->location_x . "</li>";
-    echo "<li>Longitude : " . $siteactuel->location_y . "</li>";
-    echo "<li>Stock : " . $siteactuel->stock . "</li>";
-    ?>
-</ul>
+        
+        
+         
+<table>
+            <tr>
+                <th>Nom</th>
+                <th>Type</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Stock</th>
+            </tr>
 
+    <?php
+    echo"<tr>";
+    echo "<td>" . $siteactuel->name . "</td>";
+    echo "<td>" . $siteactuel->type . "</td>";
+    echo "<td>" . $siteactuel->location_x . "</td>";
+    echo "<td>" . $siteactuel->location_y . "</td>";
+    echo "<td>" . $siteactuel->stock . "</td>";
+     echo"</tr>";
+    ?>
+           
+</table>
+ <br>
 <!--Relevés du site-->
     <h4>Relevés</h4>
 <table>
@@ -64,21 +78,45 @@ document.getElementById("site").style.display = "block";
     }
     ?>
 </table>
+    <br>
+    
+    <h4>Statistiques du site</h4>
+   <table>
+            <tr>
+                <th>Production moyenne</th>
+                <th>Production maximale relevée</th>
+                <th>Production minimale relevée</th>
+                <th>Capacité totale d'approvisionnement</th>
+            </tr> 
 <?php
 if($siteactuel->type=='producer'){
-echo "Production moyenne : ".number_format($moyenne,2);
-echo "Production maximume relevée : ".$max;
-echo "Production minimume relevée : ".$min;
-}
+    echo"<tr>";
+echo "<td>".number_format($moyenne,2);
+echo "<td>".$max;
+echo "<td>".$min;
+echo "<td>".$somme;
+}?>
+</table>
+    
+   <table>
+            <tr>
+                <th>Consommation moyenne</th>
+                <th>Consommation maximale relevée</th>
+                <th>Consommation minimale relevée</th>
+                <th>Capacité totale d'approvisionnement</th>
+            </tr>  
+<?php
 if($siteactuel->type=='consumer'){
-echo "Consommation moyenne : ".number_format($moyenne,2);
-echo "Consommation maximume relevée : ".$max;
-echo "Production minimume relevée : ".$min;
-}
+echo "<td>".number_format($moyenne,2);
+echo "<td>".$max;
+echo "<td>".$min;
+echo "<td>".$somme;
+}?>
+   </table>
+    <br>
 
-echo "Capacité totale d'approvisionnement : ".$somme;
-
-?>
+            
+   
     </section>    
     
 
