@@ -46,13 +46,18 @@
         
         
         <div class="topnav">
-            <a href="/nrjsite/management/accueil">Accueil</a>
-            <a href="/nrjsite/management/inscription">Inscription</a>
-            <a href="/nrjsite/management/liste-sites">Les sites</a>
-            <a href="/nrjsite/management/liste-voies">Les voies</a>
-            <a href="/nrjsite/management/carte">Carte</a>
-           
-<?php 
+            <?php 
+            echo $this->Html->link("Accueil",['controller' => 'Management', 'action' => 'accueil']);
+            
+            echo $this->Html->link("Inscription",['controller' => 'Management', 'action' => 'inscription']);
+            
+            echo $this->Html->link("Les sites", ['controller' => 'Management', 'action' => 'liste_sites']);
+            
+            echo $this->Html->link("Les voies", ['controller' => 'Management', 'action' => 'liste_voies']);
+            
+            echo $this->Html->link("Carte", ['controller' => 'Management', 'action' => 'carte']);
+            
+
 //    echo $this->Html->link($this->Html->image("logout.png", array("alt" => "deconnexion")),["controller"=>"Management","action"=>"deconnexion"],array('escape' => false));
 
     echo $this->Html->image("logout.png", [
