@@ -80,7 +80,7 @@
 		ING 4 - Energie & Envionnement 
 	</p>
         <p>
-		Gr1-10-DE
+		Gr1-10-DE + en bonus option B
 	</p>
 </footer>
         
