@@ -5,12 +5,12 @@ html { overflow-y:auto }
 
 
 #entete{
-text-align: center;
+    text-align: center;
 
 }
 
 #entete h1 {
-    
+
     color: #EF8F34;
 }
 p{
@@ -22,12 +22,12 @@ table {
     margin-left: 3%;
     width: 94%;
 }
-    h2{  
-   font-weight: bold;
-   color: #4079A4;
-   margin-left: 5%;
-   margin-top: 2%;
-   margin-bottom: 2%; 
+h2{  
+    font-weight: bold;
+    color: #4079A4;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%; 
 }
 
 
@@ -36,10 +36,10 @@ table {
 .topnav {
     background-color: #EF8F34;
     overflow: hidden;
-      text-align: center;
-      width: 100%;
-  
-    
+    text-align: center;
+    width: 100%;
+
+
 }
 
 /* Style the links inside the navigation bar */
@@ -62,20 +62,20 @@ table {
 
 input[type=submit]
 {
-        border-radius:12px 0 12px 0;
-	background: #f5f5f5;
-	border:none;
-	color:#4079A4;
-	font:bold 12px Verdana;
-	padding:6px 0 6px 0;
-	box-shadow:1px 1px 3px #999;
-        width: 100px;
+    border-radius:12px 0 12px 0;
+    background: #f5f5f5;
+    border:none;
+    color:#4079A4;
+    font:bold 12px Verdana;
+    padding:6px 0 6px 0;
+    box-shadow:1px 1px 3px #999;
+    width: 100px;
 }
 
 #bouton_deco{
     width: 20px;
     height: 20px;
-   
+
 }
 .topnav a:nth-last-of-type(1)
 {
@@ -83,28 +83,27 @@ input[type=submit]
 }
 .topnav a:nth-last-of-type(1):hover{
     background-color: transparent;
-    
+
 }
 
-   footer {
-          padding-top: 30px;
-	text-align: center;
-        line-height: 1px;
-      }
-       footer p{
-        font-size: small;
-        line-height: 1px;
-      }
+footer {
+    padding-top: 30px;
+    text-align: center;
+    line-height: 1px;
+}
+footer p{
+    font-size: small;
+    line-height: 1px;
+}
 
 
 
 #map {
-        height: 500px;
-        width: 800px;
-      }
-      
-      #detailsSite{
-          list-style-type:none;
-      }
-      
-   
+    height: 500px;
+    width: 800px;
+}
+
+#detailsSite{
+    list-style-type:none;
+}
+

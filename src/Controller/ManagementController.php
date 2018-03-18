@@ -137,7 +137,7 @@ class ManagementController extends AppController {
                     }
                 }
             }
-            
+
             //formulaire nouveau relevé
             $this->loadModel('Records');
             $newRecords = $this->Records->newEntity();
@@ -151,43 +151,43 @@ class ManagementController extends AppController {
             }
 
             //liste des relevés du site
-            $listeRecords = $this->Records->find();
-
-            $listeRecordsDuSite = array();
-
-            foreach ($listeRecords as $record) {
-
-                if ($record->site_id == $idsite)
-                    $listeRecordsDuSite[] = $record;
-            }
+            $listeRecordsDuSite = $this->Records->RecordsDuSite($idsite);
             $this->set("listeRecordsDuSite", $listeRecordsDuSite);
 
             //analyse données 
             //relevé moyen
-            $moyenne;
-            $total = 0;
-            foreach ($listeRecordsDuSite as $record) {
+            $moyenne = $this->Records->calculMoyenne($listeRecordsDuSite);
 
-                $total = $total + $record->value;
-            }
             //relevé max et min
-            $valeurs = array();
-            foreach ($listeRecordsDuSite as $record) {
+            $min = $this->Records->calculMin($listeRecordsDuSite);
+            $max = $this->Records->calculMax($listeRecordsDuSite);
 
-                $valeurs[] = $record->value;
-            }
-            if (sizeof($listeRecordsDuSite) == 0) {
-                $moyenne = 0;
-                $max = 0;
-                $min = 0;
-            } else {
-                $moyenne = $total / sizeof($listeRecordsDuSite);
-                $max = max($valeurs);
-                $min = min($valeurs);
-            }
             $this->set("moyenne", $moyenne);
             $this->set("max", $max);
             $this->set("min", $min);
+
+            //recordsvalues
+            $recordsvalues = array();
+            $jours = array();
+            $mois = array();
+            $annees = array();
+
+            foreach ($listeRecordsDuSite as $record) {
+
+                $testdate = date_parse($record->date);
+                $jours[] = $testdate['day'];
+                $mois[] = $testdate['month'];
+                $annees[] = $testdate['year'];
+
+                $recordsvalues[] = $record->value;
+            }
+            $this->set("recordsvalues", $recordsvalues);
+
+            $this->set("jours", $jours);
+            $this->set("mois", $mois);
+            $this->set("annees", $annees);
+
+
             //somme des débits des voies
             $voies = $this->Paths->find();
             $voiesdusite = array();
