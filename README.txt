@@ -3,6 +3,10 @@ ING 4 - Energie & Envionnement
 Gr1-10-DE + en bonus option B
 
 
+Base de données : ece_nrj.sql (accès configurer dans app.php)
+Controller : Management 
+
+
 Petites explications et consignes pour utiliser correctement notre site :
 
 -Démarrer la navigation su la page d'accueil (management/accueil).
